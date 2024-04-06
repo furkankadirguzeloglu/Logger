@@ -8,7 +8,7 @@
 #pragma warning(disable : 4996)
 #pragma warning(disable : 6031)
 
-enum class LogLevel { NORMAL, DEBUG, INFO, WARNING, ERROR, CRITICAL, TRACE, VERBOSE, AUDIT, FATAL };
+enum class LogLevel { LOG_NORMAL, LOG_DEBUG, LOG_INFO, LOG_WARNING, LOG_ERROR, LOG_CRITICAL, LOG_TRACE, LOG_VERBOSE, LOG_AUDIT, LOG_FATAL };
 
 struct LogColor {
     std::string colorCode;
@@ -17,17 +17,17 @@ struct LogColor {
 
 class Logger {
 public:
-    Logger() : logLevel(LogLevel::NORMAL), writeToConsole(true), writeToFile(false), fileName("log.txt") {
-        colorMap[LogLevel::NORMAL] = { "#ffffff", "" };
-        colorMap[LogLevel::DEBUG] = { "#0356fc", "[DEBUG]: " };
-        colorMap[LogLevel::INFO] = { "#00ff00", "[INFO]: " };
-        colorMap[LogLevel::WARNING] = { "#ffff00", "[WARNING]: " };
-        colorMap[LogLevel::ERROR] = { "#ff0000", "[ERROR]: " };
-        colorMap[LogLevel::CRITICAL] = { "#ff00ff", "[CRITICAL]: " };
-        colorMap[LogLevel::TRACE] = { "#808080", "[TRACE]: " };
-        colorMap[LogLevel::VERBOSE] = { "#800080", "[VERBOSE]: " };
-        colorMap[LogLevel::AUDIT] = { "#008080", "[AUDIT]: " };
-        colorMap[LogLevel::FATAL] = { "#ff6347", "[FATAL]: " };
+    Logger() : logLevel(LogLevel::LOG_NORMAL), writeToConsole(true), writeToFile(false), fileName("log.txt") {
+        colorMap[LogLevel::LOG_NORMAL] = { "#ffffff", "" };
+        colorMap[LogLevel::LOG_DEBUG] = { "#0356fc", "[DEBUG]: " };
+        colorMap[LogLevel::LOG_INFO] = { "#00ff00", "[INFO]: " };
+        colorMap[LogLevel::LOG_WARNING] = { "#ffff00", "[WARNING]: " };
+        colorMap[LogLevel::LOG_ERROR] = { "#ff0000", "[ERROR]: " };
+        colorMap[LogLevel::LOG_CRITICAL] = { "#ff00ff", "[CRITICAL]: " };
+        colorMap[LogLevel::LOG_TRACE] = { "#808080", "[TRACE]: " };
+        colorMap[LogLevel::LOG_VERBOSE] = { "#800080", "[VERBOSE]: " };
+        colorMap[LogLevel::LOG_AUDIT] = { "#008080", "[AUDIT]: " };
+        colorMap[LogLevel::LOG_FATAL] = { "#ff6347", "[FATAL]: " };
 
     }
 
@@ -59,7 +59,7 @@ public:
         colorMap[level].colorCode = ss.str();
     }
 
-    void writeLog(const std::string& message, LogLevel level = LogLevel::NORMAL) {
+    void writeLog(const std::string& message, LogLevel level = LogLevel::LOG_NORMAL) {
         std::lock_guard<std::mutex> lock(mutex);
         auto now = std::chrono::system_clock::now();
         std::time_t time = std::chrono::system_clock::to_time_t(now);
@@ -103,7 +103,7 @@ private:
         return ss.str();
     }
 
-    void outputToConsole(const std::string& message, LogLevel level = LogLevel::NORMAL, const std::string& timestamp = "") {
+    void outputToConsole(const std::string& message, LogLevel level = LogLevel::LOG_NORMAL, const std::string& timestamp = "") {
         if (colorMap.find(level) != colorMap.end()) {
             std::cout << hexToAnsi(colorMap[level].colorCode);
         }
@@ -111,7 +111,7 @@ private:
         std::cout << "[" << timestamp << "] " << colorMap[level].prefix << message << "\033[0m" << std::endl;
     }
 
-    void outputToFile(const std::string& message, LogLevel level = LogLevel::NORMAL, const std::string& timestamp = "") {
+    void outputToFile(const std::string& message, LogLevel level = LogLevel::LOG_NORMAL, const std::string& timestamp = "") {
         std::ofstream file(fileName, std::ios_base::app);
         if (file.is_open()) {
             file << "[" << timestamp << "] " << colorMap[level].prefix << message << std::endl;
@@ -123,6 +123,6 @@ private:
     }
 
     bool shouldLog(LogLevel level) {
-        return level >= logLevel || level == LogLevel::DEBUG;
+        return level >= logLevel || level == LogLevel::LOG_DEBUG;
     }
 };

@@ -18,7 +18,7 @@ int main() {
     Logger logger;
 
     // Set log level
-    logger.setLogLevel(LogLevel::NORMAL);
+    logger.setLogLevel(LogLevel::LOG_NORMAL);
 
     // Set console and file writing options
     logger.setWriteToConsole(true);
@@ -28,18 +28,18 @@ int main() {
     logger.setFileName("mylog.txt");
 
     // Set log colors
-    logger.setLogColor(LogLevel::INFO, "#00ff00");
-    logger.setLogColorRGB(LogLevel::ERROR, 255, 0, 0);
+    logger.setLogColor(LogLevel::LOG_INFO, "#00ff00");
+    logger.setLogColorRGB(LogLevel::LOG_ERROR, 255, 0, 0);
     
     // Write log message
     logger.writeLog("This is a normal message.");
-    logger.writeLog("This is a debug message.", LogLevel::DEBUG);
-    logger.writeLog("This is an info message.", LogLevel::INFO);
-    logger.writeLog("This is a warning message.", LogLevel::WARNING);
-    logger.writeLog("This is an error message.", LogLevel::ERROR);
-    logger.writeLog("This is a critical message.", LogLevel::CRITICAL);
-    logger.writeLog("This is a trace message.", LogLevel::TRACE);
-    logger.writeLog("This is a verbose message.", LogLevel::VERBOSE);
+    logger.writeLog("This is a debug message.", LogLevel::LOG_DEBUG);
+    logger.writeLog("This is an info message.", LogLevel::LOG_INFO);
+    logger.writeLog("This is a warning message.", LogLevel::LOG_WARNING);
+    logger.writeLog("This is an error message.", LogLevel::LOG_ERROR);
+    logger.writeLog("This is a critical message.", LogLevel::LOG_CRITICAL);
+    logger.writeLog("This is a trace message.", LogLevel::LOG_TRACE);
+    logger.writeLog("This is a verbose message.", LogLevel::LOG_VERBOSE);
     return 0;
 }
 ```
