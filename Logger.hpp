@@ -8,7 +8,19 @@
 #pragma warning(disable : 4996)
 #pragma warning(disable : 6031)
 
-enum class LogLevel { LOG_NORMAL, LOG_DEBUG, LOG_INFO, LOG_WARNING, LOG_ERROR, LOG_CRITICAL, LOG_TRACE, LOG_VERBOSE, LOG_AUDIT, LOG_FATAL };
+enum class LogLevel {
+    LOG_NORMAL,
+    LOG_TRACE,
+    LOG_DEBUG,
+    LOG_INFO,
+    LOG_WARNING,
+    LOG_ERROR,
+    LOG_CRITICAL,
+    LOG_AUDIT,
+    LOG_FATAL,
+    LOG_VERBOSE,
+    LOG_SUCCESSFUL
+};
 
 struct LogColor {
     std::string colorCode;
@@ -19,16 +31,16 @@ class Logger {
 public:
     Logger() : logLevel(LogLevel::LOG_NORMAL), writeToConsole(true), writeToFile(false), fileName("log.txt") {
         colorMap[LogLevel::LOG_NORMAL] = { "#ffffff", "" };
+        colorMap[LogLevel::LOG_TRACE] = { "#808080", "[TRACE]: " };
         colorMap[LogLevel::LOG_DEBUG] = { "#0356fc", "[DEBUG]: " };
         colorMap[LogLevel::LOG_INFO] = { "#00ff00", "[INFO]: " };
         colorMap[LogLevel::LOG_WARNING] = { "#ffff00", "[WARNING]: " };
         colorMap[LogLevel::LOG_ERROR] = { "#ff0000", "[ERROR]: " };
         colorMap[LogLevel::LOG_CRITICAL] = { "#ff00ff", "[CRITICAL]: " };
-        colorMap[LogLevel::LOG_TRACE] = { "#808080", "[TRACE]: " };
-        colorMap[LogLevel::LOG_VERBOSE] = { "#800080", "[VERBOSE]: " };
         colorMap[LogLevel::LOG_AUDIT] = { "#008080", "[AUDIT]: " };
         colorMap[LogLevel::LOG_FATAL] = { "#ff6347", "[FATAL]: " };
-
+        colorMap[LogLevel::LOG_VERBOSE] = { "#800080", "[VERBOSE]: " };
+        colorMap[LogLevel::LOG_SUCCESSFUL] = { "#00ff00", "[SUCCESSFUL]: " };
     }
 
     void setLogLevel(LogLevel level) {

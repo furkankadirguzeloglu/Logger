@@ -33,13 +33,16 @@ int main() {
     
     // Write log message
     logger.writeLog("This is a normal message.");
+    logger.writeLog("This is a trace message.", LogLevel::LOG_TRACE);
     logger.writeLog("This is a debug message.", LogLevel::LOG_DEBUG);
-    logger.writeLog("This is an info message.", LogLevel::LOG_INFO);
+    logger.writeLog("This is an information message.", LogLevel::LOG_INFO);
     logger.writeLog("This is a warning message.", LogLevel::LOG_WARNING);
     logger.writeLog("This is an error message.", LogLevel::LOG_ERROR);
     logger.writeLog("This is a critical message.", LogLevel::LOG_CRITICAL);
-    logger.writeLog("This is a trace message.", LogLevel::LOG_TRACE);
+    logger.writeLog("This is an audit message.", LogLevel::LOG_AUDIT);
+    logger.writeLog("This is a fatal message.", LogLevel::LOG_FATAL);
     logger.writeLog("This is a verbose message.", LogLevel::LOG_VERBOSE);
+    logger.writeLog("This is a successful message.", LogLevel::LOG_SUCCESSFUL);
     return 0;
 }
 ```
